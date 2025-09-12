@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contacts</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+    h2 { color: darkred; }
+    table { margin: auto; border-collapse: collapse; width: 60%; }
+    th, td { border: 1px solid #444; padding: 10px; text-align: center; }
+    th { background: #f2f2f2; }
+    a { text-decoration: none; color: blue; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>🙏 Shree Ganesha Namaha 🙏</h2>
+  <table id="contacts">
+    <tr>
+      <th>Name</th>
+      <th>Number</th>
+    </tr>
+  </table>
+
+  <script>
+    // Fetch and display CSV contacts
+    fetch("contacts2.csv")
+      .then(res => res.text())
+      .then(data => {
+        const rows = data.trim().split("\n").slice(1); // skip header
+        const table = document.getElementById("contacts");
+
+        rows.forEach(row => {
+          const [number, name] = row.split(",");
+          const tr = document.createElement("tr");
+
+          tr.innerHTML = `
+            <td>${name}</td>
+            <td><a href="tel:${number}">${number}</a></td>
+          `;
+          table.appendChild(tr);
+        });
+      });
+  </script>
+</body>
+</html>
