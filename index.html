@@ -6,31 +6,45 @@
 <style>
   body { font-family: Arial; margin:0; transition:.3s; }
   .dark { background:#0f172a; color:#e2e8f0; }
-  .light { background:#f1f5f9; color:#0f172a; }header { padding:15px; display:flex; justify-content:space-between; background:#6366f1; color:white; }
+  .light { background:#f1f5f9; color:#0f172a; }header { padding:15px; display:flex; justify-content:space-between; background:linear-gradient(90deg,#6366f1,#8b5cf6); color:white; }
 
 .container { padding:20px; }
 
-.plan, .subplan { border-radius:10px; padding:15px; margin-bottom:10px; } .plan { border:2px solid #6366f1; } .subplan { border:1px dashed #aaa; margin-left:20px; }
+.plan, .subplan { border-radius:12px; padding:15px; margin-bottom:10px; box-shadow:0 10px 20px rgba(0,0,0,0.2); } .plan { border:2px solid #6366f1; } .subplan { border:1px dashed #aaa; margin-left:20px; }
 
 input, textarea { width:100%; margin-top:5px; }
 
-button { margin:5px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
+button { margin:5px; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
 
-.active { background:#22c55e; color:white; } .failed { background:#ef4444; color:white; } .pending { background:#64748b; color:white; } </style>
+.active { background:#22c55e; color:white; } .failed { background:#ef4444; color:white; } .pending { background:#64748b; color:white; }
+
+#graphView { display:none; padding:20px; }
+
+.node { padding:10px 15px; border-radius:20px; display:inline-block; margin:10px; background:linear-gradient(135deg,#06b6d4,#3b82f6); color:white; font-weight:bold; }
+
+.subnode { background:linear-gradient(135deg,#f59e0b,#ef4444); }
+
+.line { height:2px; background:white; margin:5px 0; } </style>
 
 </head>
 <body class="dark"><header>
   <h2>AI Career Decision System</h2>
   <div>
-    <button id="themeBtn">Toggle Theme</button>
+    <button id="themeBtn">Theme</button>
     <button id="addPlanBtn">+ Plan</button>
+    <button id="visualBtn">Visualize</button>
   </div>
-</header><div class="container" id="app"></div><script>
+</header><div class="container" id="app"></div>
+<div id="graphView"></div><script>
 let data = JSON.parse(localStorage.getItem('careerV2') || '[]');
+let graphMode = false;
 
 function save(){ localStorage.setItem('careerV2', JSON.stringify(data)); }
 
 function render(){
+  document.getElementById('graphView').style.display='none';
+  document.getElementById('app').style.display='block';
+
   const app = document.getElementById('app');
   app.innerHTML='';
 
@@ -103,6 +117,31 @@ function render(){
   });
 }
 
+function renderGraph(){
+  document.getElementById('app').style.display='none';
+  const g = document.getElementById('graphView');
+  g.style.display='block';
+  g.innerHTML='';
+
+  data.forEach(plan=>{
+    let p = document.createElement('div');
+    p.className='node';
+    p.innerText = plan.title;
+    g.appendChild(p);
+
+    plan.sub.forEach(sp=>{
+      let line = document.createElement('div');
+      line.className='line';
+      g.appendChild(line);
+
+      let s = document.createElement('div');
+      s.className='node subnode';
+      s.innerText = sp.title + ' ('+sp.status+')';
+      g.appendChild(s);
+    });
+  });
+}
+
 function addPlan(){ data.push({ title:'New Plan', sub:[] }); save(); render(); }
 function deletePlan(i){ data.splice(i,1); save(); render(); }
 function addSub(i){ data[i].sub.push({ title:'Sub Plan', desc:'', status:'pending' }); save(); render(); }
@@ -117,12 +156,17 @@ function failPlan(pi,si){
   save(); render();
 }
 
-// FIXED BUTTON EVENTS
+// BUTTONS
 
 document.getElementById('addPlanBtn').onclick = addPlan;
 document.getElementById('themeBtn').onclick = () => {
   document.body.classList.toggle('dark');
   document.body.classList.toggle('light');
+};
+
+document.getElementById('visualBtn').onclick = () => {
+  graphMode = !graphMode;
+  if(graphMode) renderGraph(); else render();
 };
 
 render();
