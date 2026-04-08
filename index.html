@@ -1,98 +1,615 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Career Decision System</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@600;800&display=swap" rel="stylesheet">
 <style>
-  body { font-family: Arial; margin:0; background:#0f172a; color:#e2e8f0; }
-  header { padding:15px; display:flex; justify-content:space-between; background:linear-gradient(90deg,#6366f1,#8b5cf6); color:white; }
-  button { margin:5px; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; }#tree { width:100%; height:80vh; overflow:auto; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.node { position:absolute; padding:10px 15px; border-radius:20px; background:linear-gradient(135deg,#06b6d4,#3b82f6); color:white; cursor:pointer; }
+  :root {
+    --bg: #080c14;
+    --surface: #0e1623;
+    --border: #1e2d45;
+    --accent1: #38bdf8;
+    --accent2: #818cf8;
+    --warn: #fb923c;
+    --danger: #f87171;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --header-h: 64px;
+  }
 
-.subnode { background:linear-gradient(135deg,#f59e0b,#ef4444); }
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-#descBox { position:fixed; bottom:0; left:0; width:100%; background:#020617; padding:15px; border-top:2px solid #6366f1; display:none; } </style>
+  /* ── HEADER ── */
+  header {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header-actions { display: flex; gap: 8px; }
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn:hover { border-color: var(--accent1); color: var(--accent1); }
+  .btn.primary { background: var(--accent1); color: #000; border-color: var(--accent1); font-weight: 500; }
+  .btn.primary:hover { background: #7dd3fc; }
 
+  /* ── TREE CANVAS ── */
+  #treeWrap {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 40px 24px 120px;
+    min-height: calc(100vh - var(--header-h));
+  }
+  #treeCanvas {
+    position: relative;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  svg#connectors {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* ── ROOT NODE (top trunk) ── */
+  .root-node {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1e3a5f, #1e2d45);
+    border: 1.5px solid var(--accent1);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent1);
+    box-shadow: 0 0 20px rgba(56,189,248,0.15);
+    cursor: default;
+    user-select: none;
+  }
+  .root-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent1);
+    box-shadow: 0 0 6px var(--accent1);
+  }
+
+  /* ── PLAN ROW ── */
+  .plans-row {
+    display: flex;
+    gap: 48px;
+    margin-top: 0; /* spacing handled by SVG lines */
+  }
+
+  .plan-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ── PLAN NODE ── */
+  .plan-node {
+    padding: 10px 22px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1a2744, #111827);
+    border: 1.5px solid var(--accent2);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent2);
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+    position: relative;
+  }
+  .plan-node:hover {
+    border-color: #a5b4fc;
+    color: #a5b4fc;
+    box-shadow: 0 0 16px rgba(129,140,248,0.25);
+  }
+
+  /* ── SUB-NODES ROW ── */
+  .subnodes-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 0;
+  }
+
+  /* ── SUB NODE ── */
+  .sub-node {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2a1a0e, #1a120a);
+    border: 1.5px solid var(--warn);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--warn);
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+    position: relative;
+  }
+  .sub-node:hover {
+    border-color: #fdba74;
+    color: #fdba74;
+    box-shadow: 0 0 12px rgba(251,146,60,0.25);
+    transform: translateY(-2px);
+  }
+  .sub-node .status-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background: var(--warn);
+    vertical-align: middle;
+  }
+  .sub-node.done { border-color: #4ade80; color: #4ade80; background: #0a1f12; }
+  .sub-node.done .status-dot { background: #4ade80; }
+  .sub-node.active { border-color: var(--accent1); color: var(--accent1); background: #0a1a2a; }
+  .sub-node.active .status-dot { background: var(--accent1); }
+
+  /* ── SVG LINES ── */
+  .tree-line {
+    stroke: var(--border);
+    stroke-width: 1.5;
+    fill: none;
+  }
+  .tree-line.accent { stroke: var(--accent1); stroke-width: 1.5; }
+  .tree-line.sub { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 4 3; }
+
+  /* ── MODAL ── */
+  #overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    backdrop-filter: blur(4px);
+    animation: fadeIn .2s ease;
+  }
+  #overlay.open { display: flex; align-items: flex-end; justify-content: center; }
+  #modal {
+    width: 100%;
+    max-width: 600px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+    padding: 24px 20px 36px;
+    animation: slideUp .25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(60px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+  .modal-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .modal-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--warn);
+    color: var(--warn);
+    margin-bottom: 16px;
+  }
+  .modal-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: #94a3b8;
+    white-space: pre-wrap;
+  }
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none; border: none;
+    color: var(--muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #modal { position: relative; }
+
+  /* ── ADD PLAN FORM ── */
+  #addOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 300;
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+  }
+  #addOverlay.open { display: flex; }
+  #addModal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    width: 90%;
+    max-width: 400px;
+  }
+  #addModal h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+    color: var(--accent1);
+  }
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-size: 0.7rem; color: var(--muted); margin-bottom: 4px; letter-spacing: .05em; }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    padding: 8px 10px;
+    outline: none;
+    resize: none;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--accent1);
+  }
+  .form-row { display: flex; gap: 8px; }
+
+  /* ── EMPTY STATE ── */
+  .empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+  .empty .icon { font-size: 2.5rem; margin-bottom: 12px; }
+</style>
 </head>
-<body><header>
-  <h2>AI Career Decision System</h2>
-  <div>
-    <button onclick="addPlan()">+ Plan</button>
-    <button onclick="renderTree()">Visualize</button>
+<body>
+
+<header>
+  <h1>AI Career Decision System</h1>
+  <div class="header-actions">
+    <button class="btn primary" onclick="openAddPlan()">+ Plan</button>
+    <button class="btn" onclick="clearAll()">Clear</button>
   </div>
-</header><svg id="lines" width="2000" height="1200" style="position:absolute; top:80px; left:0;"></svg>
+</header>
 
-<div id="tree"></div><div id="descBox"></div><script>
-let data = JSON.parse(localStorage.getItem('careerV3') || '[]');
+<div id="treeWrap">
+  <div id="treeCanvas">
+    <svg id="connectors"></svg>
+    <div id="treeContent"></div>
+  </div>
+</div>
 
-function save(){ localStorage.setItem('careerV3', JSON.stringify(data)); }
+<!-- Description Modal -->
+<div id="overlay" onclick="closeModal(event)">
+  <div id="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-tag" id="mTag"></div>
+    <div class="modal-title" id="mTitle"></div>
+    <div class="modal-status" id="mStatus"></div>
+    <div class="modal-desc" id="mDesc"></div>
+  </div>
+</div>
 
-function addPlan(){
-  data.push({ title:'New Plan', sub:[{title:'A', desc:'Example desc', status:'pending'}] });
-  save();
-  renderTree();
-}
+<!-- Add Plan Modal -->
+<div id="addOverlay" onclick="closeAddModal(event)">
+  <div id="addModal">
+    <h3>+ Add Plan / Sub-Plan</h3>
+    <div class="field">
+      <label>PARENT PLAN (leave blank for top-level)</label>
+      <select id="parentSel">
+        <option value="">— Top Level Plan —</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>PLAN TITLE</label>
+      <input type="text" id="planTitle" placeholder="e.g. Australia, Canada..." />
+    </div>
+    <div id="subFields" style="display:none">
+      <div class="field">
+        <label>SUB-PLAN TITLE</label>
+        <input type="text" id="subTitle" placeholder="e.g. Option A, PR Route..." />
+      </div>
+      <div class="field">
+        <label>DESCRIPTION</label>
+        <textarea id="subDesc" rows="4" placeholder="Write detailed notes about this path..."></textarea>
+      </div>
+      <div class="field">
+        <label>STATUS</label>
+        <select id="subStatus">
+          <option value="pending">Pending</option>
+          <option value="active">Active</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row" style="margin-top:16px;">
+      <button class="btn" onclick="closeAddModal()">Cancel</button>
+      <button class="btn primary" onclick="saveNew()">Save</button>
+    </div>
+  </div>
+</div>
 
-function renderTree(){
-  const tree = document.getElementById('tree');
-  const svg = document.getElementById('lines');
-  tree.innerHTML='';
-  svg.innerHTML='';
+<script>
+// ── DATA ──────────────────────────────────────────────
+let data = JSON.parse(localStorage.getItem('careerTree_v4') || 'null') || [
+  {
+    id: 'p1', title: 'Australia',
+    subs: [
+      { id: 's1', title: 'PR Route', desc: 'Apply through skilled independent visa (189/190).\nRequires skills assessment + IELTS 7+.\nProcessing time: 8-12 months.\n\nSteps:\n1. Get skills assessed via ACS\n2. Score 65+ points\n3. Lodge EOI in SkillSelect\n4. Receive invitation to apply', status: 'pending' },
+      { id: 's2', title: 'Study First', desc: 'Complete a Master\'s at an Australian university.\nUse post-study work visa (485) to gain 2yr experience.\nThen transition to PR.\n\nUniversities: UNSW, Melbourne, ANU', status: 'pending' },
+    ]
+  },
+  {
+    id: 'p2', title: 'Stay in India',
+    subs: [
+      { id: 's3', title: 'MNC Product Role', desc: 'Target product analyst / associate PM roles at Indian MNCs.\n\nTarget companies: Jio, Reliance, Infosys, TCS Digital.\nSalary band: ₹8-15 LPA at entry.\n\nTimeline: Apply Q2 2025', status: 'active' },
+      { id: 's4', title: 'Startup Founder', desc: 'Build and launch own B2B SaaS targeting SME manufacturers in Mumbai.\n\nUse Gujarati network for first 5 clients.\nTarget: ₹50k MRR within 12 months of launch.', status: 'pending' },
+    ]
+  },
+];
 
-  let startX = 200;
-  let startY = 100;
+function save() { localStorage.setItem('careerTree_v4', JSON.stringify(data)); }
 
-  data.forEach((plan,pi)=>{
-    let x = startX + pi*300;
-    let y = startY;
+// ── RENDER ────────────────────────────────────────────
+const GAP_H = 70;   // root → plan nodes
+const GAP_V = 64;   // plan nodes → sub nodes
+const PLAN_GAP = 56; // horizontal gap between plan columns
+const SUB_GAP = 14;  // horizontal gap between sub-nodes within a plan
 
-    let node = createNode(plan.title,x,y,false,()=>{});
-    tree.appendChild(node);
+function renderTree() {
+  const content = document.getElementById('treeContent');
+  const svg = document.getElementById('connectors');
+  content.innerHTML = '';
+  svg.innerHTML = '';
 
-    plan.sub.forEach((sp,si)=>{
-      let sx = x;
-      let sy = y + 120 + si*120;
+  if (!data.length) {
+    content.innerHTML = `<div class="empty"><div class="icon">🌱</div>No plans yet. Click <b>+ Plan</b> to start.</div>`;
+    return;
+  }
 
-      let sub = createNode(sp.title + ' ('+sp.status+')',sx,sy,true,()=>{
-        showDesc(sp);
+  // Build DOM first (without absolute positions) then measure + draw SVG
+  const PADDING_TOP = 30;
+
+  // ROOT
+  const rootEl = document.createElement('div');
+  rootEl.className = 'root-node';
+  rootEl.innerHTML = `<span class="root-dot"></span>Career Paths`;
+  rootEl.style.position = 'relative';
+  content.appendChild(rootEl);
+
+  // Plans row wrapper
+  const plansRow = document.createElement('div');
+  plansRow.className = 'plans-row';
+  plansRow.style.marginTop = GAP_H + 'px';
+  content.appendChild(plansRow);
+
+  const planEls = [];
+  const subEls = []; // array of arrays
+
+  data.forEach((plan, pi) => {
+    const col = document.createElement('div');
+    col.className = 'plan-col';
+
+    const pNode = document.createElement('div');
+    pNode.className = 'plan-node';
+    pNode.textContent = plan.title;
+    pNode.dataset.pid = plan.id;
+    col.appendChild(pNode);
+
+    const subRow = document.createElement('div');
+    subRow.className = 'subnodes-row';
+    subRow.style.marginTop = GAP_V + 'px';
+
+    const mySubs = [];
+    plan.subs.forEach(sp => {
+      const sNode = document.createElement('div');
+      sNode.className = 'sub-node ' + (sp.status || 'pending');
+      sNode.innerHTML = `<span class="status-dot"></span>${sp.title}`;
+      sNode.onclick = () => showDesc(sp, plan.title);
+      subRow.appendChild(sNode);
+      mySubs.push(sNode);
+    });
+
+    col.appendChild(subRow);
+    plansRow.appendChild(col);
+    planEls.push(pNode);
+    subEls.push(mySubs);
+  });
+
+  // After DOM render, draw SVG lines
+  requestAnimationFrame(() => {
+    const canvasRect = content.getBoundingClientRect();
+    const scrollLeft = document.getElementById('treeWrap').scrollLeft;
+    const scrollTop = document.getElementById('treeWrap').scrollTop;
+
+    const rootRect = rootEl.getBoundingClientRect();
+    const rootCX = rootRect.left - canvasRect.left + scrollLeft + rootRect.width / 2;
+    const rootBY = rootRect.top - canvasRect.top + scrollTop + rootRect.height;
+
+    // total height needed
+    let maxBottom = 0;
+    subEls.forEach(subs => subs.forEach(s => {
+      const r = s.getBoundingClientRect();
+      const b = r.top - canvasRect.top + scrollTop + r.height;
+      if (b > maxBottom) maxBottom = b;
+    }));
+    svg.setAttribute('height', maxBottom + 40);
+
+    planEls.forEach((pEl, pi) => {
+      const pRect = pEl.getBoundingClientRect();
+      const pCX = pRect.left - canvasRect.left + scrollLeft + pRect.width / 2;
+      const pTY = pRect.top - canvasRect.top + scrollTop;
+      const pBY = pTY + pRect.height;
+      const pMY = pTY + pRect.height / 2;
+
+      // Root → Plan (elbow)
+      const midY = rootBY + (pTY - rootBY) / 2;
+      const path = `M ${rootCX} ${rootBY} L ${rootCX} ${midY} L ${pCX} ${midY} L ${pCX} ${pTY}`;
+      addPath(svg, path, 'accent');
+
+      // Plan → each Sub
+      subEls[pi].forEach(sEl => {
+        const sRect = sEl.getBoundingClientRect();
+        const sCX = sRect.left - canvasRect.left + scrollLeft + sRect.width / 2;
+        const sTY = sRect.top - canvasRect.top + scrollTop;
+        const midY2 = pBY + (sTY - pBY) / 2;
+        const path2 = `M ${pCX} ${pBY} L ${pCX} ${midY2} L ${sCX} ${midY2} L ${sCX} ${sTY}`;
+        addPath(svg, path2, 'sub');
       });
-
-      tree.appendChild(sub);
-
-      drawLine(x+50,y+40,sx+50,sy);
     });
   });
 }
 
-function createNode(text,x,y,isSub,onclick){
-  let div = document.createElement('div');
-  div.className = 'node ' + (isSub ? 'subnode':'');
-  div.innerText = text;
-  div.style.left = x+'px';
-  div.style.top = y+'px';
-  div.onclick = onclick;
-  return div;
+function addPath(svg, d, cls) {
+  const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p.setAttribute('d', d);
+  p.setAttribute('class', 'tree-line ' + cls);
+  svg.appendChild(p);
 }
 
-function drawLine(x1,y1,x2,y2){
-  const svg = document.getElementById('lines');
-  let line = document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1',x1);
-  line.setAttribute('y1',y1);
-  line.setAttribute('x2',x2);
-  line.setAttribute('y2',y2);
-  line.setAttribute('stroke','#94a3b8');
-  line.setAttribute('stroke-width','2');
-  svg.appendChild(line);
+// ── MODAL ─────────────────────────────────────────────
+function showDesc(sp, planTitle) {
+  document.getElementById('mTag').textContent = planTitle + ' › sub-plan';
+  document.getElementById('mTitle').textContent = sp.title;
+  const statusEl = document.getElementById('mStatus');
+  statusEl.textContent = '● ' + (sp.status || 'pending').toUpperCase();
+  statusEl.style.borderColor = sp.status === 'done' ? '#4ade80' : sp.status === 'active' ? '#38bdf8' : '#fb923c';
+  statusEl.style.color = sp.status === 'done' ? '#4ade80' : sp.status === 'active' ? '#38bdf8' : '#fb923c';
+  document.getElementById('mDesc').textContent = sp.desc || 'No description added yet.';
+  document.getElementById('overlay').classList.add('open');
+}
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('overlay') || e.currentTarget === document.getElementById('overlay')) {
+    document.getElementById('overlay').classList.remove('open');
+  }
+  if (!e) document.getElementById('overlay').classList.remove('open');
 }
 
-function showDesc(sp){
-  const box = document.getElementById('descBox');
-  box.style.display='block';
-  box.innerHTML = `<b>${sp.title}</b><br>${sp.desc || 'No description'}`;
+// ── ADD PLAN ──────────────────────────────────────────
+function openAddPlan() {
+  const sel = document.getElementById('parentSel');
+  sel.innerHTML = '<option value="">— Top Level Plan —</option>';
+  data.forEach(p => {
+    const o = document.createElement('option');
+    o.value = p.id;
+    o.textContent = p.title;
+    sel.appendChild(o);
+  });
+  sel.onchange = () => {
+    document.getElementById('subFields').style.display = sel.value ? 'block' : 'none';
+  };
+  document.getElementById('planTitle').value = '';
+  document.getElementById('subTitle').value = '';
+  document.getElementById('subDesc').value = '';
+  document.getElementById('subStatus').value = 'pending';
+  document.getElementById('subFields').style.display = 'none';
+  document.getElementById('addOverlay').classList.add('open');
 }
+function closeAddModal(e) {
+  if (!e || e.target === document.getElementById('addOverlay')) {
+    document.getElementById('addOverlay').classList.remove('open');
+  }
+}
+function saveNew() {
+  const parentId = document.getElementById('parentSel').value;
+  const title = document.getElementById('planTitle').value.trim();
+  if (!title) { alert('Title required'); return; }
+
+  if (!parentId) {
+    // New top-level plan
+    data.push({ id: 'p' + Date.now(), title, subs: [] });
+  } else {
+    const plan = data.find(p => p.id === parentId);
+    if (plan) {
+      const subTitle = document.getElementById('subTitle').value.trim() || title;
+      plan.subs.push({
+        id: 's' + Date.now(),
+        title: subTitle,
+        desc: document.getElementById('subDesc').value.trim(),
+        status: document.getElementById('subStatus').value,
+      });
+    }
+  }
+  save();
+  closeAddModal();
+  renderTree();
+}
+
+function clearAll() {
+  if (confirm('Clear all plans?')) { data = []; save(); renderTree(); }
+}
+
+// Re-render on resize for correct SVG lines
+window.addEventListener('resize', renderTree);
 
 renderTree();
-</script></body>
+</script>
+</body>
 </html>
