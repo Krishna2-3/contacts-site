@@ -1,45 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Contacts</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-    h2 { color: darkred; }
-    table { margin: auto; border-collapse: collapse; width: 60%; }
-    th, td { border: 1px solid #444; padding: 10px; text-align: center; }
-    th { background: #f2f2f2; }
-    a { text-decoration: none; color: blue; font-weight: bold; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Career Decision System</title>
+<style>
+  body { font-family: Arial; margin:0; transition:.3s; }
+  .dark { background:#0f172a; color:#e2e8f0; }
+  .light { background:#f1f5f9; color:#0f172a; }header { padding:15px; display:flex; justify-content:space-between; background:#6366f1; color:white; }
+
+.container { padding:20px; }
+
+.plan, .subplan { border-radius:10px; padding:15px; margin-bottom:10px; }
+
+.plan { border:2px solid #6366f1; } .subplan { border:1px dashed #aaa; margin-left:20px; }
+
+input, textarea { width:100%; margin-top:5px; }
+
+button { margin:5px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
+
+.active { background:#22c55e; color:white; } .failed { background:#ef4444; color:white; } .pending { background:#64748b; color:white; }
+
+</style>
 </head>
-<body>
-  <h2>🙏 Shree Ganesha Namaha 🙏</h2>
-  <table id="contacts">
-    <tr>
-      <th>Name</th>
-      <th>Number</th>
-    </tr>
-  </table>
+<body class="dark"><header>
+  <h2>AI Career Decision System</h2>
+  <div>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+    <button onclick="addPlan()">+ Plan</button>
+  </div>
+</header><div class="container" id="app"></div><script>
+let data = JSON.parse(localStorage.getItem('careerV2')) || [];
 
-  <script>
-    // Fetch and display CSV contacts
-    fetch("contacts2.csv")
-      .then(res => res.text())
-      .then(data => {
-        const rows = data.trim().split("\n").slice(1); // skip header
-        const table = document.getElementById("contacts");
+function save(){ localStorage.setItem('careerV2', JSON.stringify(data)); }
 
-        rows.forEach(row => {
-          const [number, name] = row.split(",");
-          const tr = document.createElement("tr");
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML='';
 
-          tr.innerHTML = `
-            <td>${name}</td>
-            <td><a href="tel:${number}">${number}</a></td>
-          `;
-          table.appendChild(tr);
-        });
-      });
-  </script>
+  data.forEach((plan,pi)=>{
+    let div=document.createElement('div');
+    div.className='plan';
+
+    div.innerHTML=`
+      <input value="${plan.title}" onchange="updatePlan(${pi}, this.value)">
+      <button onclick="addSub(${pi})">+ SubPlan</button>
+      <button onclick="deletePlan(${pi})">Delete</button>
+    `;
+
+    plan.sub.forEach((sp,si)=>{
+      let s=document.createElement('div');
+      s.className='subplan';
+
+      s.innerHTML=`
+        <input value="${sp.title}" onchange="updateSub(${pi},${si},this.value)">
+        <textarea onchange="updateDesc(${pi},${si},this.value)">${sp.desc}</textarea><div>
+      <button class="active" onclick="setStatus(${pi},${si},'active')">Active</button>
+      <button class="failed" onclick="failPlan(${pi},${si})">Fail</button>
+      <button class="pending" onclick="setStatus(${pi},${si},'pending')">Pending</button>
+      <button onclick="deleteSub(${pi},${si})">Delete</button>
+    </div>
+
+    <div>Status: ${sp.status}</div>
+  `;
+
+  div.appendChild(s);
+});
+
+app.appendChild(div);
+
+}); }
+
+function addPlan(){ data.push({ title:'New Plan', sub:[] }); save(); render(); }
+
+function deletePlan(i){ data.splice(i,1); save(); render(); }
+
+function updatePlan(i,val){ data[i].title=val; save(); }
+
+function addSub(i){ data[i].sub.push({ title:'Sub Plan', desc:'', status:'pending' }); save(); render(); }
+
+function updateSub(pi,si,val){ data[pi].sub[si].title=val; save(); } function updateDesc(pi,si,val){ data[pi].sub[si].desc=val; save(); }
+
+function deleteSub(pi,si){ data[pi].sub.splice(si,1); save(); render(); }
+
+function setStatus(pi,si,status){ data[pi].sub[si].status=status; save(); render(); }
+
+// 🔥 Decision Engine function failPlan(pi,si){ data[pi].sub[si].status='failed';
+
+// auto activate next let next = data[pi].sub.find(p=>p.status==='pending'); if(next) next.status='active';
+
+save(); render(); }
+
+function toggleTheme(){ document.body.classList.toggle('dark'); document.body.classList.toggle('light'); }
+
+render(); </script>
+
 </body>
 </html>
