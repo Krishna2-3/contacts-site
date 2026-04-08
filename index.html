@@ -10,26 +10,23 @@
 
 .container { padding:20px; }
 
-.plan, .subplan { border-radius:10px; padding:15px; margin-bottom:10px; }
-
-.plan { border:2px solid #6366f1; } .subplan { border:1px dashed #aaa; margin-left:20px; }
+.plan, .subplan { border-radius:10px; padding:15px; margin-bottom:10px; } .plan { border:2px solid #6366f1; } .subplan { border:1px dashed #aaa; margin-left:20px; }
 
 input, textarea { width:100%; margin-top:5px; }
 
 button { margin:5px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
 
-.active { background:#22c55e; color:white; } .failed { background:#ef4444; color:white; } .pending { background:#64748b; color:white; }
+.active { background:#22c55e; color:white; } .failed { background:#ef4444; color:white; } .pending { background:#64748b; color:white; } </style>
 
-</style>
 </head>
 <body class="dark"><header>
   <h2>AI Career Decision System</h2>
   <div>
-    <button onclick="toggleTheme()">Toggle Theme</button>
-    <button onclick="addPlan()">+ Plan</button>
+    <button id="themeBtn">Toggle Theme</button>
+    <button id="addPlanBtn">+ Plan</button>
   </div>
 </header><div class="container" id="app"></div><script>
-let data = JSON.parse(localStorage.getItem('careerV2')) || [];
+let data = JSON.parse(localStorage.getItem('careerV2') || '[]');
 
 function save(){ localStorage.setItem('careerV2', JSON.stringify(data)); }
 
@@ -41,58 +38,93 @@ function render(){
     let div=document.createElement('div');
     div.className='plan';
 
-    div.innerHTML=`
-      <input value="${plan.title}" onchange="updatePlan(${pi}, this.value)">
-      <button onclick="addSub(${pi})">+ SubPlan</button>
-      <button onclick="deletePlan(${pi})">Delete</button>
-    `;
+    let title = document.createElement('input');
+    title.value = plan.title;
+    title.onchange = () => { plan.title = title.value; save(); };
+
+    let addBtn = document.createElement('button');
+    addBtn.innerText = '+ SubPlan';
+    addBtn.onclick = () => addSub(pi);
+
+    let delBtn = document.createElement('button');
+    delBtn.innerText = 'Delete';
+    delBtn.onclick = () => deletePlan(pi);
+
+    div.appendChild(title);
+    div.appendChild(addBtn);
+    div.appendChild(delBtn);
 
     plan.sub.forEach((sp,si)=>{
       let s=document.createElement('div');
       s.className='subplan';
 
-      s.innerHTML=`
-        <input value="${sp.title}" onchange="updateSub(${pi},${si},this.value)">
-        <textarea onchange="updateDesc(${pi},${si},this.value)">${sp.desc}</textarea><div>
-      <button class="active" onclick="setStatus(${pi},${si},'active')">Active</button>
-      <button class="failed" onclick="failPlan(${pi},${si})">Fail</button>
-      <button class="pending" onclick="setStatus(${pi},${si},'pending')">Pending</button>
-      <button onclick="deleteSub(${pi},${si})">Delete</button>
-    </div>
+      let st = document.createElement('input');
+      st.value = sp.title;
+      st.onchange = () => { sp.title = st.value; save(); };
 
-    <div>Status: ${sp.status}</div>
-  `;
+      let desc = document.createElement('textarea');
+      desc.value = sp.desc;
+      desc.onchange = () => { sp.desc = desc.value; save(); };
 
-  div.appendChild(s);
-});
+      let activeBtn = document.createElement('button');
+      activeBtn.innerText='Active';
+      activeBtn.className='active';
+      activeBtn.onclick = () => setStatus(pi,si,'active');
 
-app.appendChild(div);
+      let failBtn = document.createElement('button');
+      failBtn.innerText='Fail';
+      failBtn.className='failed';
+      failBtn.onclick = () => failPlan(pi,si);
 
-}); }
+      let pendBtn = document.createElement('button');
+      pendBtn.innerText='Pending';
+      pendBtn.className='pending';
+      pendBtn.onclick = () => setStatus(pi,si,'pending');
+
+      let del = document.createElement('button');
+      del.innerText='Delete';
+      del.onclick = () => deleteSub(pi,si);
+
+      let status = document.createElement('div');
+      status.innerText = 'Status: ' + sp.status;
+
+      s.appendChild(st);
+      s.appendChild(desc);
+      s.appendChild(activeBtn);
+      s.appendChild(failBtn);
+      s.appendChild(pendBtn);
+      s.appendChild(del);
+      s.appendChild(status);
+
+      div.appendChild(s);
+    });
+
+    app.appendChild(div);
+  });
+}
 
 function addPlan(){ data.push({ title:'New Plan', sub:[] }); save(); render(); }
-
 function deletePlan(i){ data.splice(i,1); save(); render(); }
-
-function updatePlan(i,val){ data[i].title=val; save(); }
-
 function addSub(i){ data[i].sub.push({ title:'Sub Plan', desc:'', status:'pending' }); save(); render(); }
-
-function updateSub(pi,si,val){ data[pi].sub[si].title=val; save(); } function updateDesc(pi,si,val){ data[pi].sub[si].desc=val; save(); }
-
 function deleteSub(pi,si){ data[pi].sub.splice(si,1); save(); render(); }
 
 function setStatus(pi,si,status){ data[pi].sub[si].status=status; save(); render(); }
 
-// 🔥 Decision Engine function failPlan(pi,si){ data[pi].sub[si].status='failed';
+function failPlan(pi,si){
+  data[pi].sub[si].status='failed';
+  let next = data[pi].sub.find(p=>p.status==='pending');
+  if(next) next.status='active';
+  save(); render();
+}
 
-// auto activate next let next = data[pi].sub.find(p=>p.status==='pending'); if(next) next.status='active';
+// FIXED BUTTON EVENTS
 
-save(); render(); }
+document.getElementById('addPlanBtn').onclick = addPlan;
+document.getElementById('themeBtn').onclick = () => {
+  document.body.classList.toggle('dark');
+  document.body.classList.toggle('light');
+};
 
-function toggleTheme(){ document.body.classList.toggle('dark'); document.body.classList.toggle('light'); }
-
-render(); </script>
-
-</body>
+render();
+</script></body>
 </html>
