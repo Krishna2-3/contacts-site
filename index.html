@@ -4,171 +4,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Career Decision System</title>
 <style>
-  body { font-family: Arial; margin:0; transition:.3s; }
-  .dark { background:#0f172a; color:#e2e8f0; }
-  .light { background:#f1f5f9; color:#0f172a; }header { padding:15px; display:flex; justify-content:space-between; background:linear-gradient(90deg,#6366f1,#8b5cf6); color:white; }
+  body { font-family: Arial; margin:0; background:#0f172a; color:#e2e8f0; }
+  header { padding:15px; display:flex; justify-content:space-between; background:linear-gradient(90deg,#6366f1,#8b5cf6); color:white; }
+  button { margin:5px; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; }#tree { width:100%; height:80vh; overflow:auto; }
 
-.container { padding:20px; }
-
-.plan, .subplan { border-radius:12px; padding:15px; margin-bottom:10px; box-shadow:0 10px 20px rgba(0,0,0,0.2); } .plan { border:2px solid #6366f1; } .subplan { border:1px dashed #aaa; margin-left:20px; }
-
-input, textarea { width:100%; margin-top:5px; }
-
-button { margin:5px; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
-
-.active { background:#22c55e; color:white; } .failed { background:#ef4444; color:white; } .pending { background:#64748b; color:white; }
-
-#graphView { display:none; padding:20px; }
-
-.node { padding:10px 15px; border-radius:20px; display:inline-block; margin:10px; background:linear-gradient(135deg,#06b6d4,#3b82f6); color:white; font-weight:bold; }
+.node { position:absolute; padding:10px 15px; border-radius:20px; background:linear-gradient(135deg,#06b6d4,#3b82f6); color:white; cursor:pointer; }
 
 .subnode { background:linear-gradient(135deg,#f59e0b,#ef4444); }
 
-.line { height:2px; background:white; margin:5px 0; } </style>
+#descBox { position:fixed; bottom:0; left:0; width:100%; background:#020617; padding:15px; border-top:2px solid #6366f1; display:none; } </style>
 
 </head>
-<body class="dark"><header>
+<body><header>
   <h2>AI Career Decision System</h2>
   <div>
-    <button id="themeBtn">Theme</button>
-    <button id="addPlanBtn">+ Plan</button>
-    <button id="visualBtn">Visualize</button>
+    <button onclick="addPlan()">+ Plan</button>
+    <button onclick="renderTree()">Visualize</button>
   </div>
-</header><div class="container" id="app"></div>
-<div id="graphView"></div><script>
-let data = JSON.parse(localStorage.getItem('careerV2') || '[]');
-let graphMode = false;
+</header><svg id="lines" width="2000" height="1200" style="position:absolute; top:80px; left:0;"></svg>
 
-function save(){ localStorage.setItem('careerV2', JSON.stringify(data)); }
+<div id="tree"></div><div id="descBox"></div><script>
+let data = JSON.parse(localStorage.getItem('careerV3') || '[]');
 
-function render(){
-  document.getElementById('graphView').style.display='none';
-  document.getElementById('app').style.display='block';
+function save(){ localStorage.setItem('careerV3', JSON.stringify(data)); }
 
-  const app = document.getElementById('app');
-  app.innerHTML='';
+function addPlan(){
+  data.push({ title:'New Plan', sub:[{title:'A', desc:'Example desc', status:'pending'}] });
+  save();
+  renderTree();
+}
+
+function renderTree(){
+  const tree = document.getElementById('tree');
+  const svg = document.getElementById('lines');
+  tree.innerHTML='';
+  svg.innerHTML='';
+
+  let startX = 200;
+  let startY = 100;
 
   data.forEach((plan,pi)=>{
-    let div=document.createElement('div');
-    div.className='plan';
+    let x = startX + pi*300;
+    let y = startY;
 
-    let title = document.createElement('input');
-    title.value = plan.title;
-    title.onchange = () => { plan.title = title.value; save(); };
-
-    let addBtn = document.createElement('button');
-    addBtn.innerText = '+ SubPlan';
-    addBtn.onclick = () => addSub(pi);
-
-    let delBtn = document.createElement('button');
-    delBtn.innerText = 'Delete';
-    delBtn.onclick = () => deletePlan(pi);
-
-    div.appendChild(title);
-    div.appendChild(addBtn);
-    div.appendChild(delBtn);
+    let node = createNode(plan.title,x,y,false,()=>{});
+    tree.appendChild(node);
 
     plan.sub.forEach((sp,si)=>{
-      let s=document.createElement('div');
-      s.className='subplan';
+      let sx = x;
+      let sy = y + 120 + si*120;
 
-      let st = document.createElement('input');
-      st.value = sp.title;
-      st.onchange = () => { sp.title = st.value; save(); };
+      let sub = createNode(sp.title + ' ('+sp.status+')',sx,sy,true,()=>{
+        showDesc(sp);
+      });
 
-      let desc = document.createElement('textarea');
-      desc.value = sp.desc;
-      desc.onchange = () => { sp.desc = desc.value; save(); };
+      tree.appendChild(sub);
 
-      let activeBtn = document.createElement('button');
-      activeBtn.innerText='Active';
-      activeBtn.className='active';
-      activeBtn.onclick = () => setStatus(pi,si,'active');
-
-      let failBtn = document.createElement('button');
-      failBtn.innerText='Fail';
-      failBtn.className='failed';
-      failBtn.onclick = () => failPlan(pi,si);
-
-      let pendBtn = document.createElement('button');
-      pendBtn.innerText='Pending';
-      pendBtn.className='pending';
-      pendBtn.onclick = () => setStatus(pi,si,'pending');
-
-      let del = document.createElement('button');
-      del.innerText='Delete';
-      del.onclick = () => deleteSub(pi,si);
-
-      let status = document.createElement('div');
-      status.innerText = 'Status: ' + sp.status;
-
-      s.appendChild(st);
-      s.appendChild(desc);
-      s.appendChild(activeBtn);
-      s.appendChild(failBtn);
-      s.appendChild(pendBtn);
-      s.appendChild(del);
-      s.appendChild(status);
-
-      div.appendChild(s);
-    });
-
-    app.appendChild(div);
-  });
-}
-
-function renderGraph(){
-  document.getElementById('app').style.display='none';
-  const g = document.getElementById('graphView');
-  g.style.display='block';
-  g.innerHTML='';
-
-  data.forEach(plan=>{
-    let p = document.createElement('div');
-    p.className='node';
-    p.innerText = plan.title;
-    g.appendChild(p);
-
-    plan.sub.forEach(sp=>{
-      let line = document.createElement('div');
-      line.className='line';
-      g.appendChild(line);
-
-      let s = document.createElement('div');
-      s.className='node subnode';
-      s.innerText = sp.title + ' ('+sp.status+')';
-      g.appendChild(s);
+      drawLine(x+50,y+40,sx+50,sy);
     });
   });
 }
 
-function addPlan(){ data.push({ title:'New Plan', sub:[] }); save(); render(); }
-function deletePlan(i){ data.splice(i,1); save(); render(); }
-function addSub(i){ data[i].sub.push({ title:'Sub Plan', desc:'', status:'pending' }); save(); render(); }
-function deleteSub(pi,si){ data[pi].sub.splice(si,1); save(); render(); }
-
-function setStatus(pi,si,status){ data[pi].sub[si].status=status; save(); render(); }
-
-function failPlan(pi,si){
-  data[pi].sub[si].status='failed';
-  let next = data[pi].sub.find(p=>p.status==='pending');
-  if(next) next.status='active';
-  save(); render();
+function createNode(text,x,y,isSub,onclick){
+  let div = document.createElement('div');
+  div.className = 'node ' + (isSub ? 'subnode':'');
+  div.innerText = text;
+  div.style.left = x+'px';
+  div.style.top = y+'px';
+  div.onclick = onclick;
+  return div;
 }
 
-// BUTTONS
+function drawLine(x1,y1,x2,y2){
+  const svg = document.getElementById('lines');
+  let line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1',x1);
+  line.setAttribute('y1',y1);
+  line.setAttribute('x2',x2);
+  line.setAttribute('y2',y2);
+  line.setAttribute('stroke','#94a3b8');
+  line.setAttribute('stroke-width','2');
+  svg.appendChild(line);
+}
 
-document.getElementById('addPlanBtn').onclick = addPlan;
-document.getElementById('themeBtn').onclick = () => {
-  document.body.classList.toggle('dark');
-  document.body.classList.toggle('light');
-};
+function showDesc(sp){
+  const box = document.getElementById('descBox');
+  box.style.display='block';
+  box.innerHTML = `<b>${sp.title}</b><br>${sp.desc || 'No description'}`;
+}
 
-document.getElementById('visualBtn').onclick = () => {
-  graphMode = !graphMode;
-  if(graphMode) renderGraph(); else render();
-};
-
-render();
+renderTree();
 </script></body>
 </html>
