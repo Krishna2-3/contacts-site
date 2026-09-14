@@ -538,8 +538,8 @@ Janakinayakam Ramachandram Bhaje`,
 अच्युतं केशवं रामनारायणं ।
 कृष्णदामोदरं वासुदेवं हरिम् ।
 श्रीधरं माधवं गोपिकावल्लभं ।
-जानकीनायकं रामचंद्रं भजे ॥ ४ ॥`]
- ]
+जानकीनायकं रामचंद्रं भजे ॥ ४ ॥ `]
+  ]
 const names={en:"Ganesh Aarti Book",hi:"गणेश आरती संग्रह",mr:"गणेश आरती संग्रह"};
 const intro={en:["Shri Ganesh Aarti","Select an aarti below and read it in your chosen language."],hi:["श्री गणेश आरती","नीचे से कोई आरती चुनें और अपनी चुनी हुई भाषा में पढ़ें।"],mr:["श्री गणेश आरती","खालील आरती निवडा आणि आपल्या निवडलेल्या भाषेत वाचा."]};
 const nav=document.querySelector('#nav'),list=document.querySelector('#list'),lang=document.querySelector('#lang');
