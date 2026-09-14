@@ -1,689 +1,544 @@
 const A=[
-[0,"Jai Ganesh Deva",`Jai Ganesh, Jai Ganesh, Jai Ganesh Deva
-Mata Jaki Parvati, Pita Mahadeva
-
-Ekadant Dayavant, Char Bhuja Dhari
-Mathe Sindoor Sohe, Muse Ki Savari
-
-Pan Chadhe, Phool Chadhe, Aur Chadhe Meva
-Ladduan Ka Bhog Lage, Sant Kare Seva
-
-Andhan Ko Aankh Det, Kodhin Ko Kaya
-Banjhan Ko Putra Det, Nirdhan Ko Maya
-
-Sur Shyam Sharan Aaye, Safal Kije Seva
-Mata Jaki Parvati, Pita Mahadeva`,
-`जय गणेश, जय गणेश, जय गणेश देवा
-माता जाकी पार्वती, पिता महादेवा
-
-एकदंत दयावंत, चार भुजा धारी
-माथे सिंदूर सोहे, मूसे की सवारी
-
-पान चढ़े, फूल चढ़े, और चढ़े मेवा
-लड्डुओं का भोग लगे, संत करें सेवा
-
-अंधन को आँख देत, कोढ़िन को काया
-बांझन को पुत्र देत, निर्धन को माया
-
-सूर श्याम शरण आए, सफल कीजे सेवा
-माता जाकी पार्वती, पिता महादेवा`,
-`जय गणेश, जय गणेश, जय गणेश देवा
-माता जाकी पार्वती, पिता महादेवा
-
-एकदंत दयावंत, चार भुजा धारी
-माथे सिंदूर शोभे, मूषकाची स्वारी
-
-पान चढे, फूल चढे, आणि चढे मेवा
-लाडवांचा भोग लागे, संत करती सेवा
-
-अंधांना डोळे देई, कोढ्यांना काया
-वांझांना पुत्र देई, निर्धनांना माया
-
-सूर श्याम शरण आले, सफल कीजे सेवा
-माता जाकी पार्वती, पिता महादेवा`],
-
-[1,"Sukhkarta Dukhharta",`Sukhkarta Dukhharta Varta Vighnachi
-Nurvi Purvi Prema Krupa Jayachi
+[1, "Sukh Karta Dukh Harta (Ganpati Aarti)",
+`Sukhkarta Dukhharta Varta Vighnachi
+Nurvi Purvi Prem Krupa Jayachi
 Sarvangi Sundar Uti Shendurachi
-Kanthi Jhalke Maal Muktaphalanchi
+Kanthi Zhalake Mal Muktafalachi
+Jai Dev Jai Dev Jai Mangalmurti
+Shri Mangalmurti
+Darshanmatre Mankamana Purti
+Jai Dev Jai Dev
 
-Jai Dev Jai Dev Jai Mangal Murti
-Darshan Maatre Man Kaamna Purti
+Ratnakhachit Fara Tuj Gaurikumara
+Chandanachi Uti Kumkumkeshara
+Hire Jadit Mukut Shobhato Bara
+Runzhunti Nupure Charani Ghagariya
+Jai Dev Jai Dev Jai Mangalmurti
+Shri Mangalmurti
+Darshanmatre Mankamana Purti
+Jai Dev Jai Dev
 
-Ratnakhachit Phara Tujh Gaurikumra
-Chandanachi Uti Kumkum Keshara
-Hirejadit Mukut Shobhato Bara
-Runjhunati Nupure Charani Ghagariya
-
-Jai Dev Jai Dev Jai Mangal Murti
-Darshan Maatre Man Kaamna Purti
-
-Lambodar Pitambar Phanivar Bandhana
+Lambodar Pitambar Phanivarvandana
 Saral Sond Vakratunda Trinayana
-Daas Ramacha Vaat Paahe Sadna
-Sankati Pavave Nirvani Rakshave Survarvandana
-
-Jai Dev Jai Dev Jai Mangal Murti
-Darshan Maatre Man Kaamna Purti`,
-`सुखकर्ता दुःखहर्ता वार्ता विघ्नाची
-नुरवी पुरवी प्रेम कृपा जयाची
-सर्वांगी सुंदर उटी शेंदुराची
-कंठी झळके माळ मुक्ताफळांची
-
-जय देव जय देव जय मंगलमूर्ती
-दर्शन मात्रे मनःकामना पूर्ति
-
-रत्नखचित फरा तुझ गौरीकुमरा
-चंदनाची उटी कुंकुम केशरा
-हिरेजडित मुकुट शोभतो बरा
-रुणझुणती नूपुरे चरणी घागरिया
-
-जय देव जय देव जय मंगलमूर्ती
-दर्शन मात्रे मनःकामना पूर्ति
-
-लंबोदर पीतांबर फणिवर बंधना
-सरळ सोंड वक्रतुंड त्रिनयना
-दास रामाचा वाट पाहे सदना
-संकष्टी पावावे निर्वाणी रक्षावे सुरवरवंदना
-
-जय देव जय देव जय मंगलमूर्ती
-दर्शन मात्रे मनःकामना पूर्ति`,
-`सुखकर्ता दुःखहर्ता वार्ता विघ्नाची
-नुरवी पुरवी प्रेम कृपा जयाची
-सर्वांगी सुंदर उटी शेंदुराची
-कंठी झळके माळ मुक्ताफळांची
-
-जय देव जय देव जय मंगलमूर्ती
-दर्शनमात्रे मनःकामना पूर्ती
-
-रत्नखचित फरा तुज गौरीकुमरा
-चंदनाची उटी कुंकुम केशरा
-हिरेजडित मुकुट शोभतो बरा
-रुणझुणती नूपुरे चरणी घागरिया
-
-जय देव जय देव जय मंगलमूर्ती
-दर्शनमात्रे मनःकामना पूर्ती
-
-लंबोदर पीतांबर फणिवर बंधना
-सरळ सोंड वक्रतुंड त्रिनयना
-दास रामाचा वाट पाहे सदना
-संकष्टी पावावे निर्वाणी रक्षावे सुरवरवंदना
-
-जय देव जय देव जय मंगलमूर्ती
-दर्शनमात्रे मनःकामना पूर्ती`],
-
-[2,"Shendur Lal Chadhayo",`Shendur Laal Chadhayo Achha Gajmukhko
-Dondil Laal Biraaje Sut Gauriharko
-Haath Liye Gudladdu Sai Survarko
-Mahima Kahe Na Jaye Laagat Hun Padko
-
-Jai Dev Jai Dev Jai Jai Shri Ganraaj
-Vidya Sukhdata Dhanya Tumharo Darshan
-Mera Man Ramata
-
-Ashta Siddhi Daasi Sankatko Bairi
-Vighnavinashak Mangal Murat Adhikari
-Koti Suraj Prakash Ebi Chhabi Teri
-Gandasthal Madmastak Jhule Shashibahari
-
-Jai Dev Jai Dev Jai Jai Shri Ganraaj
-Vidya Sukhdata Dhanya Tumharo Darshan
-Mera Man Ramata
-
-Bhavbhagat Se Koi Sharnagat Aave
-Santat Sampat Sabahi Bharapur Paave
-Aise Tum Maharaj Moko Ati Bhave
-Gosavinandan Nishidin Gun Gaave
-
-Jai Dev Jai Dev Jai Jai Shri Ganraaj
-Vidya Sukhdata Dhanya Tumharo Darshan
-Mera Man Ramata`,
-`शेंदूर लाल चढ़ायो अच्छा गजमुख को
-दोंदिल लाल बिराजे सुत गौरीहर को
-हाथ लिए गुड़ लड्डू साईं सुरवर को
-महिमा कहे न जाए लागत हूँ पद को
-
-जय देव जय देव जय जय श्री गणराज
-विद्या सुखदाता धन्य तुम्हारा दर्शन
-मेरा मन रमता
-
-अष्ट सिद्धि दासी संकट को बैरी
-विघ्नविनाशक मंगल मूरत अधिकारी
-कोटि सूरज प्रकाश ऐसी छबि तेरी
-गंडस्थल मदमस्तक झूले शशिबहारी
-
-जय देव जय देव जय जय श्री गणराज
-विद्या सुखदाता धन्य तुम्हारा दर्शन
-मेरा मन रमता
-
-भावभक्ति से कोई शरणागत आवे
-संतत संपत सभी भरपूर पावे
-ऐसे तुम महाराज मोको अति भावे
-गोस्वामीनंदन निशिदिन गुण गावे
-
-जय देव जय देव जय जय श्री गणराज
-विद्या सुखदाता धन्य तुम्हारा दर्शन
-मेरा मन रमता`,
-`शेंदूर लाल चढायो अच्छा गजमुख को
-दोंदिल लाल विराजे सुत गौरीहर को
-हात घेऊनी गूळ लाडू साईं सुरवर को
-महिमा वर्णिता न ये, लागतो चरणांसी
-
-जय देव जय देव जय जय श्री गणराज
-विद्या सुखदाता धन्य तुझा दर्शन
-माझे मन रमता
-
-अष्ट सिद्धी दासी, संकटाची वैरी
-विघ्नविनाशक मंगलमूर्ती अधिकारी
-कोटी सूर्यासम प्रकाश तुझी छबी
-गंडस्थळी मदमस्तकी शोभे चंद्रकोरी
-
-जय देव जय देव जय जय श्री गणराज
-विद्या सुखदाता धन्य तुझा दर्शन
-माझे मन रमता
-
-भावभक्तीने जो शरणागत येई
-संतत संपत्ती भरपूर पावे
-ऐसा तू महाराज मज अति भावे
-गोस्वामीनंदन नित्य गुण गावे
-
-जय देव जय देव जय जय श्री गणराज
-विद्या सुखदाता धन्य तुझा दर्शन
-माझे मन रमता`],
-
-[3,"Lavthavti Vikrala",`Lavthavati Vikrala Brahmandi Maala
-Vishe Kantha Kaala Trinetri Jwala
-Lavanyasundar Mastaki Bala
-Tethuniya Jal Nirmal Vahe Jhulajhula
-
-Jai Dev Jai Dev Jai Shri Shankara
-Ho Swami Shankara
-Aarti Ovalu Tuj Karpurgaura
-Jai Dev Jai Dev
-
-Karpurgaura Bhola Nayani Vishala
-Ardhangi Parvati Sumananchya Maala
-Vibhutiche Udhalana Shitikantha Neela
-Aisa Shankar Shobhe Umavelhala
-
-Jai Dev Jai Dev Jai Shri Shankara
-Ho Swami Shankara
-Aarti Ovalu Tuj Karpurgaura
-Jai Dev Jai Dev
-
-Devi Daityi Sagaramanthana Pai Kele
-Tyamaji Avachita Halahal Je Uthale
-Te Tva Asurapane Prashan Kele
-Neelakantha Naam Prasiddha Jhale
-
-Jai Dev Jai Dev Jai Shri Shankara
-Ho Swami Shankara
-Aarti Ovalu Tuj Karpurgaura
-Jai Dev Jai Dev
-
-Vyaghraambara Phanivardhara Sundara Madanari
-Panchanana Manamohana Munijana Sukhkari
-Shatakotiche Beej Vache Uchchari
-Raghukulatilak Ramdasa Antari
-
-Jai Dev Jai Dev Jai Shri Shankara
-Ho Swami Shankara
-Aarti Ovalu Tuj Karpurgaura
+Das Ramacha Vaat Pahe Sadana
+Sankati Pavave Nirvani Rakshave Survandana
+Jai Dev Jai Dev Jai Mangalmurti
+Shri Mangalmurti
+Darshanmatre Mankamana Purti
 Jai Dev Jai Dev`,
-`लवथवती विक्राळा ब्रह्मांडी माळा
-विषे कंठ काळा त्रिनेत्री ज्वाळा
-लावण्यसुंदर मस्तकी बाळा
-तेथुनिया जळ निर्मळ वाहे झुळझुळा
+`(मूळ मराठी आरती – हिंदी भाषिक प्रदेशातही याच रूपात गायली जाते)
+सुखकर्ता दुखहर्ता वार्ता विघ्नाची ।
+नुरवी पूर्वी प्रेम कृपा जयाची ।
+सर्वांगी सुंदर उटी शेंदुराची ।
+कंठी झळके माळ मुक्ताफळाची ॥
+जय देव जय देव जय मंगलमूर्ती ।
+श्री मंगल मूर्ती ।
+दर्शनमात्रे मनकामना पुरती ।
+जय देव जय देव ॥
 
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
+रत्नखचित फरा तूज गौरीकुमरा ।
+चंदनाची उटी कुंकुमकेशरा ।
+हिरे जडित मुकुट शोभतो बरा ।
+रुणझुणती नुपुरे चरणी घागरिया ॥
+जय देव जय देव जय मंगलमूर्ती ।
+श्री मंगल मूर्ती ।
+दर्शनमात्रे मनकामना पुरती ।
+जय देव जय देव ॥
+
+लंबोदर पितांबर फणिवरवंदना ।
+सरळ सोंड वक्रतुंड त्रिनयना ।
+दास रामाचा वाट पाहे सदना ।
+संकटी पावावे निर्वाणी रक्षावे सुरवंदना ॥
+जय देव जय देव जय मंगलमूर्ती ।
+श्री मंगल मूर्ती ।
+दर्शनमात्रे मनकामना पुरती ।
+जय देव जय देव ॥`,
+`सुखकर्ता दुखहर्ता वार्ता विघ्नाची ।
+नुरवी पूर्वी प्रेम कृपा जयाची ।
+सर्वांगी सुंदर उटी शेंदुराची ।
+कंठी झळके माळ मुक्ताफळाची ॥
+जय देव जय देव जय मंगलमूर्ती ।
+श्री मंगल मूर्ती ।
+दर्शनमात्रे मनकामना पुरती ।
+जय देव जय देव ॥
+
+रत्नखचित फरा तूज गौरीकुमरा ।
+चंदनाची उटी कुंकुमकेशरा ।
+हिरे जडित मुकुट शोभतो बरा ।
+रुणझुणती नुपुरे चरणी घागरिया ॥
+जय देव जय देव जय मंगलमूर्ती ।
+श्री मंगल मूर्ती ।
+दर्शनमात्रे मनकामना पुरती ।
+जय देव जय देव ॥
+
+लंबोदर पितांबर फणिवरवंदना ।
+सरळ सोंड वक्रतुंड त्रिनयना ।
+दास रामाचा वाट पाहे सदना ।
+संकटी पावावे निर्वाणी रक्षावे सुरवंदना ॥
+जय देव जय देव जय मंगलमूर्ती ।
+श्री मंगल मूर्ती ।
+दर्शनमात्रे मनकामना पुरती ।
+जय देव जय देव ॥`],
+
+[2, "Shendurlal Chadayo (Ganesh Aarti)",
+`Shendur Lal Chadhayo Achha Gajmukh Ko
+Dondil Lal Biraje Sut Gaurihar Ko
+Haath Liye Gud-Laddu Sai Survar Ko
+Mahima Kahe Na Jaay Lagat Hun Pad Ko
+Jai Jai Shri Ganraj Vidya Sukhdata
+Dhanya Tumharo Darshan Mera Man Ramata
+Jai Dev Jai Dev
+
+Ashtau Siddhi Dasi Sankat Ko Bairi
+Vighn Vinashan Mangalmurat Adhikari
+Koti Suraj Prakash Aisi Chhabi Teri
+Gandasthal Madmastak Jhule Shashibahari
+Jai Dev Jai Dev
+
+Bhaav Bhagat Se Koi Sharanagat Aave
+Santati Sampatti Sabahi Bharpur Paave
+Aise Tum Maharaj Moko Ati Bhaave
+Gosavinandan Nishidin Gun Gaave
+Jai Dev Jai Dev`,
+`(मूळ हिंदी आरती)
+शेंदूर लाल चढ़ायो अच्छा गजमुख को ।
+दोंदिल लाल बिराजे सुत गौरिहर को ।
+हाथ लिए गुड़लड्डू साईं सुरवर को ।
+महिमा कहे न जाय लागत हूं पद को ॥
+जय जय श्री गणराज विद्या सुखदाता ।
+धन्य तुम्हारो दर्शन मेरा मन रमता ॥
 जय देव जय देव
 
-कर्पूरगौरा भोळा नयनी विशाळा
-अर्धांगी पार्वती सुमनांच्या माळा
-विभूतीचे उधळण शितिकंठ नीळा
-ऐसा शंकर शोभे उमावेल्हाळा
-
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
+अष्टौ सिद्धि दासी संकट को बैरी ।
+विघ्नविनाशन मंगलमूरत अधिकारी ।
+कोटी सूरज प्रकाश ऐसी छबि तेरी ।
+गंडस्थल मदमस्तक झूले शशिबहारी ॥
 जय देव जय देव
 
-देवी दैत्यीं सागरमंथन पै केले
-त्यामाजी अवचित हलाहल जे उठले
-ते त्वां असुरपणे प्राशन केले
-नीलकंठ नाम प्रसिद्ध झाले
-
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
-जय देव जय देव
-
-व्याघ्रांबर फणिवरधर सुंदर मदनारी
-पंचानन मनमोहन मुनीजन सुखकारी
-शतकोटीचे बीज वाचे उच्चारी
-रघुकुलतिलक रामदासा अंतरी
-
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
+भावभगत से कोई शरणागत आवे ।
+संतति संपत्ति सबहि भरपूर पावे ।
+ऐसे तुम महाराज मोको अति भावे ।
+गोसावीनंदन निशिदिन गुण गावे ॥
 जय देव जय देव`,
-`लवथवती विक्राळा ब्रह्मांडी माळा
-विषे कंठ काळा त्रिनेत्री ज्वाळा
-लावण्यसुंदर मस्तकी बाळा
-तेथुनिया जळ निर्मळ वाहे झुळझुळा
-
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
+`(महाराष्ट्रातही हीच हिंदी आरती जशीच्या तशी गायली जाते)
+शेंदूर लाल चढ़ायो अच्छा गजमुख को ।
+दोंदिल लाल बिराजे सुत गौरिहर को ।
+हाथ लिए गुड़लड्डू साईं सुरवर को ।
+महिमा कहे न जाय लागत हूं पद को ॥
+जय जय श्री गणराज विद्या सुखदाता ।
+धन्य तुम्हारो दर्शन मेरा मन रमता ॥
 जय देव जय देव
 
-कर्पूरगौरा भोळा नयनी विशाळा
-अर्धांगी पार्वती सुमनांच्या माळा
-विभूतीचे उधळण शितिकंठ नीळा
-ऐसा शंकर शोभे उमावेल्हाळा
-
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
+अष्टौ सिद्धि दासी संकट को बैरी ।
+विघ्नविनाशन मंगलमूरत अधिकारी ।
+कोटी सूरज प्रकाश ऐसी छबि तेरी ।
+गंडस्थल मदमस्तक झूले शशिबहारी ॥
 जय देव जय देव
 
-देवी दैत्यीं सागरमंथन पै केले
-त्यामाजी अवचित हलाहल जे उठले
-ते त्वां असुरपणे प्राशन केले
-नीलकंठ नाम प्रसिद्ध झाले
-
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
-जय देव जय देव
-
-व्याघ्रांबर फणिवरधर सुंदर मदनारी
-पंचानन मनमोहन मुनीजन सुखकारी
-शतकोटीचे बीज वाचे उच्चारी
-रघुकुलतिलक रामदासा अंतरी
-
-जय देव जय देव जय श्री शंकरा
-हो स्वामी शंकरा
-आरती ओवाळू तुज कर्पूरगौरा
+भावभगत से कोई शरणागत आवे ।
+संतति संपत्ति सबहि भरपूर पावे ।
+ऐसे तुम महाराज मोको अति भावे ।
+गोसावीनंदन निशिदिन गुण गावे ॥
 जय देव जय देव`],
 
-[4,"Durge Durghat Bhari",`Durge Durghat Bhari Tujvin Sansari
-Anathanathe Ambe Karuna Vistari
-Vaari Vaari Janma Maranate Vaari
-Haari Padalo Aata Sankat Nivari
+[3, "Lavthavti Vikrala (Shankaraची Aarti)",
+`Lavthavti Vikrala Brahmandi Mala
+Vishe Kanth Kala Trinetri Jwala
+Lavanyasundar Mastaki Baala
+Tethuniya Jal Nirmal Vahe Zhuljula
+Jai Dev Jai Dev Jai Shrishankara
+Aarti Ovalu Tuj Karpurgaura
 
-Jai Devi Jai Devi Jai Mahishasuramathini
-Survar Ishvar Varde Taarak Sanjivani
+Karpurgaura Bhola Nayani Vishala
+Ardhangi Parvati Sumananchya Mala
+Vibhuticheh Udhalan Shitikanth Neela
+Aisa Shankar Shobhe Umavelhala
+Jai Dev Jai Dev Jai Shrishankara
+
+Devi Daityi Sagarmanthan Pai Kele
+Tyamaji Avchit Halhal Je Uthile
+Te Tva Asurpane Prashan Kele
+Nilkanth Naam Prasiddha Zale
+Jai Dev Jai Dev Jai Shrishankara
+
+Vyaghrambar Phanivardhar Sundar Madanari
+Panchanan Manmohan Munijansukhkari
+Shatakotiche Beej Vache Uchari
+Raghukultilak Ramadasa Antari
+Jai Dev Jai Dev Jai Shrishankara`,
+`(मूळ मराठी आरती – समर्थ रामदास स्वामी रचित)
+लवथवती विक्राळा ब्रह्मांडी माळा ।
+विषें कंठ काळा त्रिनेत्री ज्वाळा ॥
+लावण्यसुंदर मस्तकी बाळा ।
+तेथुनिया जल निर्मळ वाहे झुळझुळा ॥ १ ॥
+जय देव जय देव जय श्रीशंकरा ।
+आरती ओवाळू तुज कर्पूरगौरा ॥ धृ ॥
+
+कर्पूरगौरा भोळा नयनी विशाळा ।
+अर्धांगी पार्वती सुमनांच्या माळा ॥
+विभुतीचे उधळण शितिकंठ नीळा ।
+ऐसा शंकर शोभे उमावेल्हाळा ॥ जय देव० ॥ २ ॥
+
+देवी दैत्यी सागरमंथन पै केले ।
+त्यामाजी अवचित हळहळ जे उठिले ॥
+ते त्वां असुरपणे प्राशन केले ।
+नीळकंठ नाम प्रसिद्ध झाले ॥ जय देव० ॥ ३ ॥
+
+व्याघ्रांबर फणिवरधर सुंदर मदनारी ।
+पंचानन मनमोहन मुनिजनसुखकारी ॥
+शतकोटीचे बीज वाचे उच्चारी ।
+रघुकुळटिळक रामदासा अंतरी ॥ जय देव० ॥ ४ ॥`,
+`लवथवती विक्राळा ब्रह्मांडी माळा ।
+विषें कंठ काळा त्रिनेत्री ज्वाळा ॥
+लावण्यसुंदर मस्तकी बाळा ।
+तेथुनिया जल निर्मळ वाहे झुळझुळा ॥ १ ॥
+जय देव जय देव जय श्रीशंकरा ।
+आरती ओवाळू तुज कर्पूरगौरा ॥ धृ ॥
+
+कर्पूरगौरा भोळा नयनी विशाळा ।
+अर्धांगी पार्वती सुमनांच्या माळा ॥
+विभुतीचे उधळण शितिकंठ नीळा ।
+ऐसा शंकर शोभे उमावेल्हाळा ॥ जय देव० ॥ २ ॥
+
+देवी दैत्यी सागरमंथन पै केले ।
+त्यामाजी अवचित हळहळ जे उठिले ॥
+ते त्वां असुरपणे प्राशन केले ।
+नीळकंठ नाम प्रसिद्ध झाले ॥ जय देव० ॥ ३ ॥
+
+व्याघ्रांबर फणिवरधर सुंदर मदनारी ।
+पंचानन मनमोहन मुनिजनसुखकारी ॥
+शतकोटीचे बीज वाचे उच्चारी ।
+रघुकुळटिळक रामदासा अंतरी ॥ जय देव० ॥ ४ ॥`],
+
+[4, "Durghe Durghat Aarti (Devi Aarti)",
+`Durge Durghat Bhari Tujvin Sansari
+Anathnathe Ambe Karuna Vistari
+Vari Vari Janmamaranate Vari
+Hari Padlo Aata Sankat Nivari
+Jai Devi Jai Devi Jai Mahishasurmathini
+Survar Ishwarvarade Tarak Sanjivani
+
+Tribhuvani Bhuvani Pahta Tuj Aisi Nahi
+Chari Shramle Parantu Na Bolve Kahi
+Sahi Vivad Karita Padle Pravahi
+Te Tu Bhaktanlagi Pavasi Lavlahi
 Jai Devi Jai Devi
 
-Tribhuvani Bhuvani Pahata Tuj Aisi Nahi
-Chaari Shramale Parantu Na Bolave Kahi
-Saahi Vivaad Karita Padale Pravahi
-Te Tu Bhaktalagi Pavasi Lavlahi
-
-Jai Devi Jai Devi Jai Mahishasuramathini
-Survar Ishvar Varde Taarak Sanjivani
-Jai Devi Jai Devi
-
-Prasanna Vadane Prasanna Hosi Nijadasa
-Kleshanpasuni Sodavi Todi Bhavapasha
-Ambe Tujvachun Kon Purvila Asha
-Narahari Tallin Jhala Padapankajalesha
-
-Jai Devi Jai Devi Jai Mahishasuramathini
-Survar Ishvar Varde Taarak Sanjivani
+Prasanna Vadane Prasanna Hosi Nijdasa
+Kleshanpasuni Sodvi Todi Bhavpasha
+Ambe Tujvachun Kon Purvil Asha
+Narahari Tallin Zhala Padpankajlesha
 Jai Devi Jai Devi`,
-`दुर्गे दुर्गट भारी तुजविण संसारी
-अनाथनाथे अंबे करुणा विस्तारी
-वारी वारी जन्ममरणाते वारी
-हारी पडलो आता संकट निवारी
+`(मूळ मराठी आरती)
+दुर्गे दुर्घट भारी तुजविण संसारी ।
+अनाथनाथे अंबे करुणा विस्तारी ॥
+वारी वारी जन्ममरणाते वारी ।
+हारी पडलो आता संकट निवारी ॥ १ ॥
+जय देवी जय देवी जय महिषासुरमथिनी ।
+सुरवरईश्वरवरदे तारक संजीवनी ॥ धृ ॥
 
-जय देवी जय देवी जय महिषासुरमथिनी
-सुरवर ईश्वर वरदे तारक संजीवनी
-जय देवी जय देवी
+त्रिभुवनी भुवनी पाहता तुज ऐसी नाही ।
+चारी श्रमले परंतु न बोलवे काही ॥
+साही विवाद करिता पडले प्रवाही ।
+ते तू भक्तांलागी पावसी लवलाही ॥ जय देवी० ॥ २ ॥
 
-त्रिभुवनी भुवनी पाहता तुज ऐसी नाही
-चारी श्रमले परंतु न बोलवे काही
-साही विवाद करिता पडिले प्रवाही
-ते तू भक्तालागी पावसी लवलाही
+प्रसन्न वदने प्रसन्न होसी निजदासा ।
+क्लेशांपासूनी सोडवी तोडी भवपाशा ॥
+अंबे तुजवाचून कोण पुरवील आशा ।
+नरहरी तल्लीन झाला पदपंकजलेशा ॥ जय देवी० ॥ ३ ॥`,
+`दुर्गे दुर्घट भारी तुजविण संसारी ।
+अनाथनाथे अंबे करुणा विस्तारी ॥
+वारी वारी जन्ममरणाते वारी ।
+हारी पडलो आता संकट निवारी ॥ १ ॥
+जय देवी जय देवी जय महिषासुरमथिनी ।
+सुरवरईश्वरवरदे तारक संजीवनी ॥ धृ ॥
 
-जय देवी जय देवी जय महिषासुरमथिनी
-सुरवर ईश्वर वरदे तारक संजीवनी
-जय देवी जय देवी
+त्रिभुवनी भुवनी पाहता तुज ऐसी नाही ।
+चारी श्रमले परंतु न बोलवे काही ॥
+साही विवाद करिता पडले प्रवाही ।
+ते तू भक्तांलागी पावसी लवलाही ॥ जय देवी० ॥ २ ॥
 
-प्रसन्न वदने प्रसन्न होसी निजदासा
-क्लेशांपासुनी सोडवी तोडी भवपाशा
-अंबे तुजवाचून कोण पुरवील आशा
-नरहरी तल्लीन झाला पदपंकजलेशा
+प्रसन्न वदने प्रसन्न होसी निजदासा ।
+क्लेशांपासूनी सोडवी तोडी भवपाशा ॥
+अंबे तुजवाचून कोण पुरवील आशा ।
+नरहरी तल्लीन झाला पदपंकजलेशा ॥ जय देवी० ॥ ३ ॥`],
 
-जय देवी जय देवी जय महिषासुरमथिनी
-सुरवर ईश्वर वरदे तारक संजीवनी
-जय देवी जय देवी`,
-`दुर्गे दुर्गट भारी तुजविण संसारी
-अनाथनाथे अंबे करुणा विस्तारी
-वारी वारी जन्ममरणाते वारी
-हारी पडलो आता संकट निवारी
-
-जय देवी जय देवी जय महिषासुरमथिनी
-सुरवर ईश्वर वरदे तारक संजीवनी
-जय देवी जय देवी
-
-त्रिभुवनी भुवनी पाहता तुज ऐसी नाही
-चारी श्रमले परंतु न बोलवे काही
-साही विवाद करिता पडिले प्रवाही
-ते तू भक्तालागी पावसी लवलाही
-
-जय देवी जय देवी जय महिषासुरमथिनी
-सुरवर ईश्वर वरदे तारक संजीवनी
-जय देवी जय देवी
-
-प्रसन्न वदने प्रसन्न होसी निजदासा
-क्लेशांपासुनी सोडवी तोडी भवपाशा
-अंबे तुजवाचून कोण पुरवील आशा
-नरहरी तल्लीन झाला पदपंकजलेशा
-
-जय देवी जय देवी जय महिषासुरमथिनी
-सुरवर ईश्वर वरदे तारक संजीवनी
-जय देवी जय देवी`],
-
-[5,"Yei Ho Vitthale",`Yei Ho Vitthale Majhe Mauli Ye
+[5, "Yei O Vithale (Vitthal Aarti)",
+`Yei Ho Vitthale Majhe Mauli Ye
 Nidhalavari Kar Thevuni Vaat Mi Pahe
 
 Aaliya Geliya Hati Dhadi Nirop
 Pandharpuri Aahe Majha Maybaap
+Yei Ho...
 
-Yei Ho Vitthale Majhe Mauli Ye
-Nidhalavari Kar Thevuni Vaat Mi Pahe
-
-Pivala Pitambar Kaisa Gagani Jhalakala
+Pivla Pitambar Kaisa Gagani Zhalakla
 Garudavari Baisoni Majha Kaivari Aala
-
-Yei Ho Vitthale Majhe Mauli Ye
-Nidhalavari Kar Thevuni Vaat Mi Pahe
+Yei Ho...
 
 Vithobache Rajya Aamha Nitya Dipavali
-Vishnudas Nama Jivebhave Ovali
+Vishnudas Nama Jive Bhave Ovali
+Yei Ho...
 
-Yei Ho Vitthale Majhe Mauli Ye
-Nidhalavari Kar Thevuni Vaat Mi Pahe`,
-`येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे
+Aso Naso Bhaav Aamha Tujhiya Thaaya
+Krupadrushti Pahe Majhya Pandhariraya
+Yei Ho...`,
+`(मूळ मराठी अभंग/आरती – संत नामदेव)
+येई हो विठ्ठले माझे माऊली ये ।
+निढळावरी कर ठेवुनि वाट मी पाहे ॥ धृ ॥
 
-आलिया गेलिया हातीं धाडी निरोप
-पंढरपुरी आहे माझा मायबाप
+आलिया गेलिया हाती धाडी निरोप ।
+पंढरपुरी आहे माझा मायबाप ॥ येई हो० ॥ १ ॥
 
-येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे
+पिवळा पीतांबर कैसा गगनी झळकला ।
+गरुडावरि बैसोनि माझा कैवारी आला ॥ येई हो० ॥ २ ॥
 
-पिवळा पीतांबर कैसा गगनी झळकला
-गरुडावरी बैसोनि माझा कैवारी आला
+विठोबाचे राज्य आम्हा नित्य दिपवाळी ।
+विष्णुदास नामा जीवे भावे ओवाळी ॥ येई हो० ॥ ३ ॥
 
-येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे
+असो नसो भाव आम्हां तुझिया ठाया ।
+कृपादृष्टी पाहे माझ्या पंढरीराया ॥ येई हो० ॥ ४ ॥`,
+`येई हो विठ्ठले माझे माऊली ये ।
+निढळावरी कर ठेवुनि वाट मी पाहे ॥ धृ ॥
 
-विठोबाचे राज्य आम्हां नित्य दिपवाळी
-विष्णुदास नामा जीवेंभावे ओवाळी
+आलिया गेलिया हाती धाडी निरोप ।
+पंढरपुरी आहे माझा मायबाप ॥ येई हो० ॥ १ ॥
 
-येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे`,
-`येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे
+पिवळा पीतांबर कैसा गगनी झळकला ।
+गरुडावरि बैसोनि माझा कैवारी आला ॥ येई हो० ॥ २ ॥
 
-आलिया गेलिया हातीं धाडी निरोप
-पंढरपुरी आहे माझा मायबाप
+विठोबाचे राज्य आम्हा नित्य दिपवाळी ।
+विष्णुदास नामा जीवे भावे ओवाळी ॥ येई हो० ॥ ३ ॥
 
-येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे
+असो नसो भाव आम्हां तुझिया ठाया ।
+कृपादृष्टी पाहे माझ्या पंढरीराया ॥ येई हो० ॥ ४ ॥`],
 
-पिवळा पीतांबर कैसा गगनी झळकला
-गरुडावरी बैसोनि माझा कैवारी आला
+[6, "Tu Sukh Karta Tu Dukh Harta",
+`(Note: this is the same Ganpati aarti as #1, "Sukhkarta Dukhharta" — just a common alternate way people refer to its opening line. The correct, complete text is identical to entry 1 above; see there for the full lyrics.)`,
+`(टीप: ही आरती वरील क्रमांक १ ("सुखकर्ता दुखहर्ता") हीच आरती आहे, फक्त सुरुवातीची ओळ बोलण्याच्या पद्धतीने वेगळी वाटते. पूर्ण व अचूक आरतीचा मजकूर क्रमांक १ प्रमाणेच आहे.)`,
+`(टीप: ही आरती वरील क्रमांक १ ("सुखकर्ता दुखहर्ता") हीच आरती आहे. संपूर्ण, अचूक मजकुरासाठी क्रमांक १ पहा — कृपया वेगळा मजकूर समजू नये.)`],
 
-येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे
+[7, "Jay Ganesh (Ganesh Aarti)",
+`Jai Ganesh Jai Ganesh Jai Ganesh Deva
+Mata Jaki Parvati Pita Mahadeva
 
-विठोबाचे राज्य आम्हां नित्य दिपवाळी
-विष्णुदास नामा जीवेंभावे ओवाळी
+Ekdant Dayavant Chaar Bhujadhari
+Mathe Par Tilak Sohe Muse Ki Savari
+Paan Chadhe Phool Chadhe Aur Chadhe Meva
+Laddu'an Ka Bhog Lage Sant Karein Seva
+Jai Ganesh Jai Ganesh Jai Ganesh Deva
 
-येई हो विठ्ठले माझे माऊली ये
-निढळावरी कर ठेवुनी वाट मी पाहे`],
+Andhan Ko Aankh Det Kodhin Ko Kaaya
+Baanjhan Ko Putra Det Nirdhan Ko Maaya
+'Sur' Shyam Sharan Aaye Safal Kije Seva
+Jai Ganesh Jai Ganesh Jai Ganesh Deva`,
+`जय गणेश जय गणेश जय गणेश देवा ।
+माता जाकी पार्वती पिता महादेवा ॥
 
-[6,"Tu Sukhkarta Tu Dukhharta",`Tu Sukhkarta, Tu Dukhharta
-Tuch Karta Aani Karvita
-Morya Morya, Mangalmurti Morya
+एकदंत दयावंत चार भुजाधारी ।
+माथे पर तिलक सोहे मूसे की सवारी ॥
+पान चढ़े फूल चढ़े और चढ़े मेवा ।
+लड्डुअन का भोग लगे संत करें सेवा ॥
+जय गणेश जय गणेश जय गणेश देवा ।
+माता जाकी पार्वती पिता महादेवा ॥
 
-Omkara Tu, Tu Adhinayak
-Chintamani Tu, Siddhivinayak
-Mangalmurti Tu Bhavatarak
-Sarvasakshi Tu Ashtavinayak
+अंधन को आंख देत कोढ़िन को काया ।
+बांझन को पुत्र देत निर्धन को माया ॥
+'सूर' श्याम शरण आए सफल कीजे सेवा ।
+जय गणेश जय गणेश जय गणेश देवा ॥`,
+`(ही मूळ हिंदी आरती महाराष्ट्रातही तितक्याच भक्तिभावाने गायली जाते)
+जय गणेश जय गणेश जय गणेश देवा ।
+माता जाकी पार्वती पिता महादेवा ॥
 
-Tujhya Krupecha Haath Mastaki
-Paayi Tav Mam Chinta
-Deva Saru De Majhe Mi Pan
-Tujhya Darshane Ujalo Jeevan
+एकदंत दयावंत चार भुजाधारी ।
+माथे पर तिलक सोहे मूसे की सवारी ॥
+पान चढ़े फूल चढ़े और चढ़े मेवा ।
+लड्डुअन का भोग लगे संत करें सेवा ॥
+जय गणेश जय गणेश जय गणेश देवा ।
+माता जाकी पार्वती पिता महादेवा ॥
 
-Nitya Karave Tujhech Chintan
-Tujhya Dhuliche Bhaali Bhushan
-Sadaiv Raho Othavarati
-Tujhich Re Gunagatha`,
-`तू सुखकर्ता, तू दुःखहर्ता
-तूच कर्ता आणि करविता
-मोरया मोरया, मंगलमूर्ती मोरया
+अंधन को आंख देत कोढ़िन को काया ।
+बांझन को पुत्र देत निर्धन को माया ॥
+'सूर' श्याम शरण आए सफल कीजे सेवा ।
+जय गणेश जय गणेश जय गणेश देवा ॥`],
 
-ओंकारा तू, तू अधिनायक
-चिंतामणी तू, सिद्धिविनायक
-मंगलमूर्ती तू भवतारक
-सर्वसाक्षी तू अष्टविनायक
+[8, "Om Jai Jagdish Hare",
+`Om Jai Jagdish Hare, Swami Jai Jagdish Hare
+Bhakt Janon Ke Sankat, Das Janon Ke Sankat, Kshan Mein Door Kare
 
-तुझ्या कृपेचा हात मस्तकी
-पायी तव मम चिंता
-देवा सरू दे माझे मी पण
-तुझ्या दर्शने उजळो जीवन
+Jo Dhyave Phal Pave, Dukh Binse Manka
+Sukh Sampatti Ghar Aave, Kasht Mite Tanka
 
-नित्य करावे तुझेच चिंतन
-तुझ्या धुळीचे भाळी भूषण
-सदैव राहो ओठांवरती
-तुझीच रे गुणगाथा`,
-`तू सुखकर्ता, तू दुःखहर्ता
-तूच कर्ता आणि करविता
-मोरया मोरया, मंगलमूर्ती मोरया
+Maat Pita Tum Mere, Sharan Gahu Kiski
+Tum Bin Aur Na Duja, Aas Karu Main Jiski
 
-ओंकारा तू, तू अधिनायक
-चिंतामणी तू, सिद्धिविनायक
-मंगलमूर्ती तू भवतारक
-सर्वसाक्षी तू अष्टविनायक
+Tum Puran Parmatma, Tum Antaryami
+Parabrahm Parmeshwar, Tum Sabke Swami
 
-तुझ्या कृपेचा हात मस्तकी
-पायी तव मम चिंता
-देवा सरू दे माझे मी पण
-तुझ्या दर्शने उजळो जीवन
+Tum Karuna Ke Sagar, Tum Palankarta
+Main Murakh Khalkami, Kripa Karo Bharta
 
-नित्य करावे तुझेच चिंतन
-तुझ्या धुळीचे भाळी भूषण
-सदैव राहो ओठांवरती
-तुझीच रे गुणगाथा`],
+Tum Ho Ek Agochar, Sabke Pranpati
+Kis Vidhi Milu Dayamay, Tumko Main Kumati
 
-[7,"Om Jai Jagdish Hare",`Om Jai Jagdish Hare
-Swami Jai Jagdish Hare
-Bhakt Jano Ke Sankat
-Kshan Mein Door Kare
+Deenbandhu Dukhharta, Tum Rakshak Mere
+Apne Haath Uthao, Dwar Padha Tere
 
-Jo Dhyaave Phal Paave
-Dukh Vinse Man Ka
-Sukh Sampatti Ghar Aave
-Kasht Mite Tan Ka
+Vishay Vikar Mitao, Paap Haro Deva
+Shraddha Bhakti Badhao, Santan Ki Seva
 
-Mata Pita Tum Mere
-Sharan Gahun Main Kiski
-Tum Bin Aur Na Duja
-Aas Karun Main Jiski
+Tan Man Dhan Jo Kuchh Hai, Sab Hi Hai Tera
+Tera Tujhko Arpan, Kya Lagat Mera`,
+`ॐ जय जगदीश हरे, स्वामी जय जगदीश हरे ।
+भक्त जनों के संकट, दास जनों के संकट, क्षण में दूर करे ॥ ॐ जय जगदीश हरे ॥
 
-Tum Puran Paramatma
-Tum Antaryami
-Parabrahma Parameshwar
-Tum Sabke Swami
+जो ध्यावे फल पावे, दुःख बिनसे मन का ।
+सुख सम्पत्ति घर आवे, कष्ट मिटे तन का ॥ ॐ जय जगदीश हरे ॥
 
-Tum Karuna Ke Sagar
-Tum Palankarta
-Main Moorakh Khal Kami
-Kripa Karo Bharta
+मात पिता तुम मेरे, शरण गहूं किसकी ।
+तुम बिन और न दूजा, आस करूं मैं जिसकी ॥ ॐ जय जगदीश हरे ॥
 
-Tum Ho Ek Agochar
-Sabke Pranapati
-Kis Vidhi Milun Dayamaya
-Tumko Main Kumati
+तुम पूरण परमात्मा, तुम अंतर्यामी ।
+पारब्रह्म परमेश्वर, तुम सबके स्वामी ॥ ॐ जय जगदीश हरे ॥
 
-Deenbandhu Dukh Harata
-Tum Rakshak Mere
-Karuna Hast Badhaao
-Dwar Khada Tere
+तुम करुणा के सागर, तुम पालनकर्ता ।
+मैं मूरख खलकामी, कृपा करो भर्ता ॥ ॐ जय जगदीश हरे ॥
 
-Vishay Vikaar Mitaao
-Paap Haro Deva
-Shraddha Bhakti Badhaao
-Santan Ki Seva
+तुम हो एक अगोचर, सबके प्राणपति ।
+किस विधि मिलूं दयामय, तुमको मैं कुमति ॥ ॐ जय जगदीश हरे ॥
 
-Om Jai Jagdish Hare
-Swami Jai Jagdish Hare`,
-`ॐ जय जगदीश हरे
-स्वामी जय जगदीश हरे
-भक्त जनों के संकट
-क्षण में दूर करे
+दीनबंधु दुःखहर्ता, तुम रक्षक मेरे ।
+अपने हाथ उठाओ, द्वार पड़ा तेरे ॥ ॐ जय जगदीश हरे ॥
 
-जो ध्यावे फल पावे
-दुःख विनसे मन का
-सुख संपत्ति घर आवे
-कष्ट मिटे तन का
+विषय विकार मिटाओ, पाप हरो देवा ।
+श्रद्धा भक्ति बढ़ाओ, संतन की सेवा ॥ ॐ जय जगदीश हरे ॥
 
-माता पिता तुम मेरे
-शरण गहूँ मैं किसकी
-तुम बिन और न दूजा
-आस करूँ मैं जिसकी
+तन मन धन जो कुछ है, सब ही है तेरा ।
+तेरा तुझको अर्पण, क्या लगत है मेरा ॥ ॐ जय जगदीश हरे ॥`,
+`(मूळ हिंदी आरती – पं. श्रद्धाराम फिल्लौरी रचित; संपूर्ण भारतात, महाराष्ट्रातही, हीच आरती गायली जाते)
+ॐ जय जगदीश हरे, स्वामी जय जगदीश हरे ।
+भक्त जनों के संकट, दास जनों के संकट, क्षण में दूर करे ॥ ॐ जय जगदीश हरे ॥
 
-तुम पूर्ण परमात्मा
-तुम अंतर्यामी
-परब्रह्म परमेश्वर
-तुम सबके स्वामी
+जो ध्यावे फल पावे, दुःख बिनसे मन का ।
+सुख सम्पत्ति घर आवे, कष्ट मिटे तन का ॥ ॐ जय जगदीश हरे ॥
 
-तुम करुणा के सागर
-तुम पालनकर्ता
-मैं मूरख खल कामी
-कृपा करो भर्ता
+मात पिता तुम मेरे, शरण गहूं किसकी ।
+तुम बिन और न दूजा, आस करूं मैं जिसकी ॥ ॐ जय जगदीश हरे ॥
 
-तुम हो एक अगोचर
-सबके प्राणपति
-किस विधि मिलूँ दयामय
-तुमको मैं कुमति
+तुम पूरण परमात्मा, तुम अंतर्यामी ।
+पारब्रह्म परमेश्वर, तुम सबके स्वामी ॥ ॐ जय जगदीश हरे ॥
 
-दीनबंधु दुःख हरता
-तुम रक्षक मेरे
-करुणा हस्त बढ़ाओ
-द्वार खड़ा तेरे
+तुम करुणा के सागर, तुम पालनकर्ता ।
+मैं मूरख खलकामी, कृपा करो भर्ता ॥ ॐ जय जगदीश हरे ॥
 
-विषय विकार मिटाओ
-पाप हरो देवा
-श्रद्धा भक्ति बढ़ाओ
-संतन की सेवा
+तुम हो एक अगोचर, सबके प्राणपति ।
+किस विधि मिलूं दयामय, तुमको मैं कुमति ॥ ॐ जय जगदीश हरे ॥
 
-ॐ जय जगदीश हरे
-स्वामी जय जगदीश हरे`,
-`ॐ जय जगदीश हरे
-स्वामी जय जगदीश हरे
-भक्त जनांचे संकट
-क्षणात दूर करे
+दीनबंधु दुःखहर्ता, तुम रक्षक मेरे ।
+अपने हाथ उठाओ, द्वार पड़ा तेरे ॥ ॐ जय जगदीश हरे ॥
 
-जो ध्यावे फळ पावे
-दुःख विनसे मनाचे
-सुख संपत्ती घरी येई
-कष्ट मिटती तनाचे
+विषय विकार मिटाओ, पाप हरो देवा ।
+श्रद्धा भक्ति बढ़ाओ, संतन की सेवा ॥ ॐ जय जगदीश हरे ॥
 
-माता पिता तुम्ही माझे
-शरण जाऊ मी कुणाची
-तुमविण दुसरा नाही
-आस धरू मी कुणाची
+तन मन धन जो कुछ है, सब ही है तेरा ।
+तेरा तुझको अर्पण, क्या लगत है मेरा ॥ ॐ जय जगदीश हरे ॥`],
 
-तुम पूर्ण परमात्मा
-तुम अंतर्यामी
-परब्रह्म परमेश्वर
-तुम्ही सर्वांचे स्वामी
+[9, "Kapur Gaurang (Karpurgaura Gaurishankara – Shankarची Aarti)",
+`Karpurgaura Gaurishankara Aarti Karu Tujla
+Naam Smarta Prasanna Houni Pavasi Bhaktala
 
-तुम करुणेचे सागर
-तुम पालनकर्ता
-मी मूर्ख खल कामी
-कृपा करा भर्ता
+Trishul Damaru Shobhat Hasti Kanthi Rundamala
+Ugravishate Piuni Rakshisi Deva Dikpalan
+Tritiya Netri Nighati Krodhe Pralayagni Jwala
+Namiti Suramuni Tujla Aisa Tu Shankar Bhola
 
-तुम एक अगोचर
-सर्वांचे प्राणपती
-कशा रीतीने भेटू दयामया
-तुम्हाला मी कुमती
+Dhavla Nandi Vahan Shobhe Ardhangi Gauri
+Jata Mukuti Vaas Karitase Gangasundari
+Sadaya Saguna Gaurirmana Mam Sankat Vari
+Moreshwarsut Vasudev Tuj Smarto Antari`,
+`(मूळ मराठी आरती)
+कर्पूरगौरा गौरीशंकरा आरती करूं तुजला ॥
+नाम स्मरता प्रसन्न होउनि पावसि भक्ताला ॥ धृ ॥
 
-दीनबंधू दुःखहर्ता
-तुम रक्षक माझे
-करुणेचा हात वाढवा
-दारात उभा तुझ्या
+त्रिशूळ डमरू शोभत हस्तीं कंठी रुंडमाळा ॥
+उग्रविषातें पिऊनि रक्षिसी देवां दिक्पाळां ॥
+तृतीय नेत्रीं निघती क्रोधें प्रळयाग्नी ज्वाळा ॥
+नमिती सुरमुनि तुजला ऐसा तूं शंकर भोळा ॥ १ ॥
 
-विषय विकार मिटवा
-पाप हरो देवा
-श्रद्धा भक्ती वाढवा
-संतांची सेवा
+ढवळा नंदी वाहन शोभे अर्धांगी गौरी ॥
+जटा मुकुटीं वास करितसे गंगासुंदरी ॥
+सदया सगुणा गौरीरमणा मम संकट वारीं ॥
+मोरेश्वरसुत वासुदेव तुज स्मरतो अंतरी ॥ २ ॥`,
+`कर्पूरगौरा गौरीशंकरा आरती करूं तुजला ॥
+नाम स्मरता प्रसन्न होउनि पावसि भक्ताला ॥ धृ ॥
 
-ॐ जय जगदीश हरे
-स्वामी जय जगदीश हरे`],
+त्रिशूळ डमरू शोभत हस्तीं कंठी रुंडमाळा ॥
+उग्रविषातें पिऊनि रक्षिसी देवां दिक्पाळां ॥
+तृतीय नेत्रीं निघती क्रोधें प्रळयाग्नी ज्वाळा ॥
+नमिती सुरमुनि तुजला ऐसा तूं शंकर भोळा ॥ १ ॥
 
-[8,"Karpur Gauram",`Karpur Gauram Karunavataram
-Sansar Saram Bhujagendra Haram
-Sada Vasantam Hridayaravinde
-Bhavam Bhavani Sahitam Namami
+ढवळा नंदी वाहन शोभे अर्धांगी गौरी ॥
+जटा मुकुटीं वास करितसे गंगासुंदरी ॥
+सदया सगुणा गौरीरमणा मम संकट वारीं ॥
+मोरेश्वरसुत वासुदेव तुज स्मरतो अंतरी ॥ २ ॥`],
 
-Karpuragauram Karunavataram
-Sansarasaram Bhujagendraharaam
-Sada Vasantam Hridayaravinde
-Bhavam Bhavani Sahitam Namami`,
-`कर्पूरगौरं करुणावतारं
-संसारसारं भुजगेन्द्रहारम्
-सदा वसन्तं हृदयारविन्दे
-भवं भवानीसहितं नमामि
+[10, "Ghalin Lotangan",
+`Ghalin Lotangan Vandin Charan
+Dolyanni Pahin Roop Tujhe
+Preme Alingan Aanande Pujin
+Bhave Ovalin Mhane Nama
 
-कर्पूरगौरं करुणावतारं
-संसारसारं भुजगेन्द्रहारम्
-सदा वसन्तं हृदयारविन्दे
-भवं भवानीसहितं नमामि`,
-`कर्पूरगौरं करुणावतारं
-संसारसारं भुजगेन्द्रहारम्
-सदा वसन्तं हृदयारविंदे
-भवं भवानीसहितं नमामि
+Tvameva Mata Cha Pita Tvameva
+Tvameva Bandhushcha Sakha Tvameva
+Tvameva Vidya Dravinam Tvameva
+Tvameva Sarvam Mama Devadeva
 
-कर्पूरगौरं करुणावतारं
-संसारसारं भुजगेन्द्रहारम्
-सदा वसंतं हृदयारविंदे
-भवं भवानीसहितं नमामि`],
-
-[9,"Ghalin Lotangan",`Ghalin Lotangan Vandin Charan
-Dolyani Pahin Rup Tujhe
-Preme Alingan Anande Pujin
-Bhavene Ovalin Mhane Nama
-
-Tvamev Mata Cha Pita Tvamev
-Tvamev Bandhushcha Sakha Tvamev
-Tvamev Vidya Dravinam Tvamev
-Tvamev Sarvam Mama Deva Deva
-
-Kayena Vacha Manasendriyairva
-Buddhyatmana Va Prakriteh Svabhavat
+Kayen Vacha Manasendriyair Va
+Buddhyatmana Va Prakritisvabhavat
 Karomi Yadyat Sakalam Parasmai
 Narayanayeti Samarpayami
 
-Achyutam Keshavam Ram Narayanam
-Krishna Damodaram Vasudevam Harim
+Achyutam Keshavam Ramanarayanam
+Krishnadamodaram Vasudevam Harim
 Shridharam Madhavam Gopikavallabham
-Janaki Nayakam Ramachandram Bhaje
+Janakinayakam Ramachandram Bhaje`,
+`घालीन लोटांगण वंदीन चरण ।
+डोळ्यांनी पाहीन रूप तुझें ।
+प्रेमें आलिंगन आनंदे पूजीन ।
+भावें ओवाळीन म्हणे नामा ॥ १ ॥
 
-Hare Rama Hare Rama Rama Rama Hare Hare
-Hare Krishna Hare Krishna Krishna Krishna Hare Hare`,
-`घालीन लोटांगण वंदीन चरण
-डोळ्यांनी पाहीन रूप तुझे`]
+त्वमेव माता च पिता त्वमेव ।
+त्वमेव बंधुश्च सखा त्वमेव ।
+त्वमेव विद्या द्रविणं त्वमेव ।
+त्वमेव सर्वं मम देवदेव ॥ २ ॥
 
+कायेन वाचा मनसेंद्रियैर्वा ।
+बुद्ध्यात्मना वा प्रकृतिस्वभावात् ।
+करोमि यद्यत् सकलं परस्मै ।
+नारायणायेति समर्पयामि ॥ ३ ॥
+
+अच्युतं केशवं रामनारायणं ।
+कृष्णदामोदरं वासुदेवं हरिम् ।
+श्रीधरं माधवं गोपिकावल्लभं ।
+जानकीनायकं रामचंद्रं भजे ॥ ४ ॥`,
+`घालीन लोटांगण वंदीन चरण ।
+डोळ्यांनी पाहीन रूप तुझें ।
+प्रेमें आलिंगन आनंदे पूजीन ।
+भावें ओवाळीन म्हणे नामा ॥ १ ॥
+
+त्वमेव माता च पिता त्वमेव ।
+त्वमेव बंधुश्च सखा त्वमेव ।
+त्वमेव विद्या द्रविणं त्वमेव ।
+त्वमेव सर्वं मम देवदेव ॥ २ ॥
+
+कायेन वाचा मनसेंद्रियैर्वा ।
+बुद्ध्यात्मना वा प्रकृतिस्वभावात् ।
+करोमि यद्यत् सकलं परस्मै ।
+नारायणायेति समर्पयामि ॥ ३ ॥
+
+अच्युतं केशवं रामनारायणं ।
+कृष्णदामोदरं वासुदेवं हरिम् ।
+श्रीधरं माधवं गोपिकावल्लभं ।
+जानकीनायकं रामचंद्रं भजे ॥ ४ ॥`]
  ]
 const names={en:"Ganesh Aarti Book",hi:"गणेश आरती संग्रह",mr:"गणेश आरती संग्रह"};
 const intro={en:["Shri Ganesh Aarti","Select an aarti below and read it in your chosen language."],hi:["श्री गणेश आरती","नीचे से कोई आरती चुनें और अपनी चुनी हुई भाषा में पढ़ें।"],mr:["श्री गणेश आरती","खालील आरती निवडा आणि आपल्या निवडलेल्या भाषेत वाचा."]};
